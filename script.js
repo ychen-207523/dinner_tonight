@@ -1,6 +1,23 @@
 document.addEventListener('DOMContentLoaded', () => {
+    var mealList = document.getElementById('mealList');
     const selectButton = document.getElementById('selectButton');
     const resultText = document.getElementById('result');
+
+    fetch('meals.json')
+        .then(response => response.json())
+        .then(data => {
+            if (data && data.meals && data.meals.length > 0) {
+
+                const ul = document.createElement('ul');
+                data.meals.forEach(element => {
+                    const li = document.createElement('li');
+                    li.textContent = element;
+                    ul.appendChild(li);
+                });
+
+                mealList.appendChild(ul);
+            }
+        })
 
     selectButton.addEventListener('click', () => {
         fetch('meals.json')
